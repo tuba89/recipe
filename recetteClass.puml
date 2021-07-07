@@ -1,0 +1,79 @@
+@startuml
+set namespaceSeparator ::
+
+class "recipe_app::main.dart::MyApp" {
+  +Widget* build()
+}
+
+class "recipe_app::models::hits.dart::Hits" {
+  +RecipeModel* recipeModel
+}
+
+"recipe_app::models::hits.dart::Hits" o-- "recipe_app::models::recipe_model.dart::RecipeModel"
+
+
+
+class "recipe_app::models::recipe_model.dart::RecipeModel" {
+  +String* image
+  +String* url
+  +String* source
+  +String* label
+}
+
+
+
+class "recipe_app::views::home.dart::Home" {
+  +_HomeState* createState()
+}
+
+class "recipe_app::views::home.dart::_HomeState" {
+  +List<RecipeModel*>* recipies
+  +String* ingridients
+  -bool* _loading
+  +String* query
+  +TextEditingController* textEditingController
+  +void initState()
+  +Widget* build()
+}
+
+"recipe_app::views::home.dart::_HomeState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+
+class "recipe_app::views::home.dart::RecipieTile" {
+  +String* title
+  +String* desc
+  +String* imgUrl
+  +String* url
+  +_RecipieTileState* createState()
+}
+
+class "recipe_app::views::home.dart::_RecipieTileState" {
+  -dynamic _launchURL()
+  +Widget* build()
+}
+
+class "recipe_app::views::home.dart::GradientCard" {
+  +Color* topColor
+  +Color* bottomColor
+  +String* topColorCode
+  +String* bottomColorCode
+  +Widget* build()
+}
+
+"recipe_app::views::home.dart::GradientCard" o-- "dart::ui::Color"
+
+class "recipe_app::views::recipe_view.dart::RecipeView" {
+  +String* postUrl
+  +_RecipeViewState* createState()
+}
+
+class "recipe_app::views::recipe_view.dart::_RecipeViewState" {
+  -Completer<WebViewController*>* _controller
+  +String* finalUrl
+  +void initState()
+  +Widget* build()
+}
+
+"recipe_app::views::recipe_view.dart::_RecipeViewState" o-- "dart::async::Completer<WebViewController>"
+
+
+@enduml
